@@ -1,4 +1,5 @@
-const { usersModel } = require("../models")
+const { usersModel } = require("../models");
+const { encryptedPassword } = require("../utils/bcrypt");
 
 const dbGetUserByEmail = async (email) => {
     return await usersModel.findOne({email})
@@ -7,7 +8,7 @@ const dbGetUserByEmail = async (email) => {
 const dbRegisterUser = async (newUser) => {
     const dbUser = new usersModel( newUser);
 
-    dbUser.password = "12345"
+    dbUser.password = encryptedPassword (dbUser.password);
 
     return await dbUser.save();
     
