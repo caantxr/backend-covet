@@ -10,4 +10,8 @@ const encryptedPassword = ( pass ) => {
     return hashPassword;
 }
 
-module.exports = {encryptedPassword}
+const verifyEncriptedPassword = (pass, hashPassword) => {
+    return bcrypt.compareSync(pass,hashPassword);
+}
+
+module.exports = {encryptedPassword,verifyEncriptedPassword}

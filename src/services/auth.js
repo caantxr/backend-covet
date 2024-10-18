@@ -1,5 +1,6 @@
 const { usersModel } = require("../models");
 const { encryptedPassword } = require("../utils/bcrypt");
+const { removePropertyUsers } = require("../utils/json-filter");
 
 const dbGetUserByEmail = async (email) => {
     return await usersModel.findOne({email})
@@ -11,13 +12,9 @@ const dbRegisterUser = async (newUser) => {
     dbUser.password = encryptedPassword (dbUser.password);
 
     const bjsonUser = await dbUser.save();
-    const dataUser = bjsonUser.toObject();
+    
+    return removePropertyUsers(bjsonUser);
 
-    delete dataUser.password;
-    delete dataUser.createdAt;
-    delete dataUser.updatedAt;
-
-    return dataUser;
 }
 
 module.exports = {dbGetUserByEmail,dbRegisterUser}
