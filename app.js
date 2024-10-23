@@ -16,6 +16,7 @@ dbConnect();
 /** Rutas */
 app.use("/api/auth", require("./src/routes/auth")); // Rutas para autenticación
 app.use("/api/events", require("./src/routes/events")); // Rutas para eventos
+app.use("/api/categories", require("./src/routes/categories")); // Rutas para Categorias
 
 /** Iniciar el servidor */
 app.listen(PORT, () => {
