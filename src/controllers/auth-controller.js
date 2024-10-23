@@ -5,6 +5,16 @@ const { generateToken } = require("../utils/jwt");
 
 async function register (req,res){
     const inputData = req.body;
+    
+    if (!inputData.username || !inputData.username.includes('@')) {
+        return res.json({
+            ok: false,
+            msg: 'El correo electrónico proporcionado no es válido.'
+        });
+    }
+
+    
+    
     try {
         const userFound = await dbGetUserByEmail (inputData.email)
         if (userFound){
@@ -67,4 +77,19 @@ async function login (req,res){
         })
     }
 }
-module.exports = {register,login}
+
+function reNewToken( req, res ) {
+    // Paso 1: Obtener el payload del objeto Request
+    const payload = req.authUser;
+
+    // Paso 2: Genera nuevo Token con payload del Token anterior
+    const newToken = generateToken( payload );
+
+    // Paso 3: Envia el Token al cliente
+    res.json({
+        ok: true,
+        token: newToken
+    });
+}
+
+module.exports = {register,login,reNewToken}

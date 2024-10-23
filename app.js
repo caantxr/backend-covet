@@ -1,23 +1,23 @@
+const express = require("express");
+const cors = require("cors");
+const dbConnect = require('./src/config/mongo');
+const app = express();
 
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use(express.static("storage")); // Servir archivos estáticos desde la carpeta "storage"
 
-const express = require("express")
-const cors = require("cors")
-const dbConnect = require('./src/config/mongo')
-const app = express()
+const PORT = process.env.PORT || 3000; // Definir el puerto
 
-app.use(cors())
-app.use(express.json())
-app.use(express.static("storage"))
+/** Conexión a MongoDB */
+dbConnect();
 
-const port = process.env.PORT || 3000
+/** Rutas */
+app.use("/api/auth", require("./src/routes/auth")); // Rutas para autenticación
+app.use("/api/events", require("./src/routes/events")); // Rutas para eventos
 
-//aqui invoamos a las rutas!
-
-//TODO localhost/api/-----
-app.use("/api",require("./src/routes"))
-
-app.listen(port, () => {
-    console.log(`tu app esta lista por http://localhost:${port}`)
-})
-
-dbConnect()
+/** Iniciar el servidor */
+app.listen(PORT, () => {
+    console.log(`Tu app está lista por http://localhost:${PORT}`);
+});
