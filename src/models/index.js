@@ -15,7 +15,9 @@ const models = {
     // Modelo de comentarios
     commentModel: require('./nosql/comment'),
     // Modelo de categorías
-    categoryModel: require('./nosql/category')
+    categoryModel: require('./nosql/category'),
+    // Modelo de Business
+    businessModel: require('./nosql/business')
 };
 
 // Manejo de errores al cargar los modelos

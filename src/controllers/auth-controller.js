@@ -1,4 +1,5 @@
-const { dbGetUserByEmail, dbRegisterUser } = require("../services/auth");
+const business = require("../models/nosql/business");
+const { dbGetUserByEmail, dbRegisterUser, dbRegisterBusinessOwner } = require("../services/auth");
 const { verifyEncriptedPassword } = require("../utils/bcrypt");
 const { removePropertyUsers } = require("../utils/json-filter");
 const { generateToken } = require("../utils/jwt");
@@ -37,6 +38,33 @@ async function register (req,res){
         })
     }
 
+    
+}
+
+async function registerBusiness (req,res){
+    const inputData = req.body;
+
+    const userData = {
+        name: inputData.name,
+        email: inputData.email,
+        password: inputData.password
+    };
+    const businessData = {
+        ...inputData.business
+    }
+
+    try {
+        const data = await dbRegisterBusinessOwner( userData, businessData )
+        res.json({ ok: true, data });
+    }
+    catch( error ) {
+        console.error(error);
+        res.json({
+            ok: false,
+            msg: 'Error al registrar el negocio'
+        })
+    }
+    
     
 }
 
@@ -94,4 +122,9 @@ function reNewToken( req, res ) {
     });
 }
 
-module.exports = {register,login,reNewToken}
+module.exports = {
+    register,
+    registerBusiness,
+    login,
+    reNewToken
+}
