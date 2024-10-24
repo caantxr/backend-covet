@@ -1,13 +1,16 @@
 const mongoose = require("mongoose");
 
-const CategoryScheme = new mongoose.Schema(
+const CategorySchema = new mongoose.Schema(
     {
         name: {
             type: String,
-            required: true // Hacer que el nombre sea requerido
+            required: true, // Hacer que el nombre sea requerido
+            minlength: 3,   // Longitud mínima
+            maxlength: 50   // Longitud máxima
         },
         description: {
-            type: String
+            type: String,
+            maxlength: 200  // Longitud máxima para la descripción
         },
         events: [{
             type: mongoose.Schema.Types.ObjectId, // Referencia a múltiples eventos
@@ -20,4 +23,4 @@ const CategoryScheme = new mongoose.Schema(
     }
 );
 
-module.exports = mongoose.model("categories", CategoryScheme);
+module.exports = mongoose.model("categories", CategorySchema);

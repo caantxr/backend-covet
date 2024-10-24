@@ -1,4 +1,4 @@
-const CategoryModel = require("../models/nosql/categories");
+const CategoryModel = require("../models/nosql/category");
 
 const dbGetCategories = async () => {
     return await CategoryModel.find().populate('events'); // Puedes usar populate si quieres obtener detalles de eventos

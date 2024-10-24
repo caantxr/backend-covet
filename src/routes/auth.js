@@ -2,11 +2,11 @@ const express = require("express");
 const { register, login } = require("../controllers/auth-controller");
 const router = express.Router();
 
-
-//TODO http://localhost/events GET,POST, DELETE,PUT
-
+// Rutas de autenticación
+// POST /auth/register - Registrar un nuevo usuario
 router.post('/register', register); 
-router.post('/login', login), 
 
+// POST /auth/login - Iniciar sesión de un usuario
+router.post('/login', login); 
 
-module.exports = router
+module.exports = router;

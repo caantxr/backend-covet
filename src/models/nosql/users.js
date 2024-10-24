@@ -1,37 +1,43 @@
-const { MongoOIDCError } = require("mongodb")
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
+// Definición del esquema para usuarios
 const UserScheme = new mongoose.Schema(
     {
-        name:{
-            type:String,
-            required:true,
+        // Nombre del usuario
+        name: {
+            type: String,
+            required: true, // Campo obligatorio
         },
-        age:{
-            type:Number,
-            min: 0,
+        // Edad del usuario (debe ser un número positivo)
+        age: {
+            type: Number,
+            min: 0, // La edad no puede ser negativa
         },
-        email:{
-            type:String,
-            unique:true,
-            required:true,
-            match: /.+\@.+\..+/ 
+        // Correo electrónico del usuario
+        email: {
+            type: String,
+            unique: true, // Debe ser único en la colección
+            required: true, // Campo obligatorio
+            match: /.+\@.+\..+/ // Validación básica de formato de correo
         },
-        password:{
-            type:String,
-            required: true,
-            minlenght: 8,
+        // Contraseña del usuario
+        password: {
+            type: String,
+            required: true, // Campo obligatorio
+            minlength: 8, // Mínimo 8 caracteres
         },
-        role:{
+        // Rol del usuario
+        role: {
             type: String, 
-            enum: [ "user", "admin" ],
-            default: "user",
+            enum: ["user", "admin"], // Los únicos valores permitidos
+            default: "user", // Valor por defecto
         }
     },
     {
-        timestamps:true,  //TODO createAt, updatedAt
-        versionKey:false
+        timestamps: true,  // Crea automáticamente createdAt y updatedAt
+        versionKey: false  // Desactiva el campo __v que mongoose agrega automáticamente
     }
 );
 
-module.exports = mongoose.model("users", UserScheme)
+// Exportar el modelo para su uso en otras partes de la aplicación
+module.exports = mongoose.model("users", UserScheme);

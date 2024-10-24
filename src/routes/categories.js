@@ -8,10 +8,26 @@ const {
     deleteCategory
 } = require('../controllers/categories');
 
-router.get('/', getCategories); // Obtener todas las categorías
-router.get('/:id', getCategoryById); // Obtener categoría por ID
-router.post('/', createCategory); // Crear nueva categoría
-router.patch('/:id', updateCategory); // Actualizar categoría
-router.delete('/:id', deleteCategory); // Eliminar categoría
+// Obtener todas las categorías
+// Respuesta: Array de categorías
+router.get('/', getCategories); 
+
+// Obtener categoría por ID
+// Respuesta: Objeto de categoría si existe
+router.get('/:id', getCategoryById); 
+
+// Crear nueva categoría
+// Requiere: { name, description }
+// Respuesta: Objeto de la nueva categoría creada
+router.post('/', createCategory); 
+
+// Actualizar categoría
+// Requiere: { name, description } (solo los campos que se deseen actualizar)
+// Respuesta: Objeto de la categoría actualizada
+router.patch('/:id', updateCategory); 
+
+// Eliminar categoría
+// Respuesta: Mensaje de éxito o error
+router.delete('/:id', deleteCategory); 
 
 module.exports = router;

@@ -1,29 +1,43 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
+// Definición del esquema para las reservas
 const ReservationScheme = new mongoose.Schema(
     {
-        userId:{
-            type: mongoose.Schema.Types.ObjectId,  //referencia a User
-            ref:'users'
+        // Referencia al usuario que realiza la reserva
+        userId: {
+            type: mongoose.Schema.Types.ObjectId, // Referencia a User
+            ref: 'users',
+            required: true // El campo es obligatorio
         },
-        eventId:{
-            type:mongoose.Schema.Types.ObjectId,
-            ref:'events' //referencia al evento
+        // Referencia al evento para el cual se realiza la reserva
+        eventId: {
+            type: mongoose.Schema.Types.ObjectId, // Referencia a Event
+            ref: 'events',
+            required: true // El campo es obligatorio
         },
-        numberOfTickets:{
-            type:Number
+        // Número de boletos reservados
+        numberOfTickets: {
+            type: Number,
+            required: true, // El campo es obligatorio
+            min: 1 // Asegúrate de que sea al menos 1
         },
-        reservationDate:{
-            type:Date
+        // Fecha en la que se realizó la reserva
+        reservationDate: {
+            type: Date,
+            required: true // El campo es obligatorio
         },
-        status:{
-            type:["confirmed","pending","cancelled"]
+        // Estado de la reserva
+        status: {
+            type: String,
+            enum: ["confirmed", "pending", "cancelled"], // Define los estados válidos
+            default: "pending" // Valor predeterminado
         }
     },
     {
-        timestamps:true,  //TODO createAt, updatedAt
-        versionKey:false
+        timestamps: true,  // Crea automáticamente createdAt y updatedAt
+        versionKey: false // Desactiva el campo __v que mongoose agrega automáticamente
     }
 );
 
-module.exports = mongoose.model("reservations", ReservationScheme)
+// Exportar el modelo para su uso en otras partes de la aplicación
+module.exports = mongoose.model("reservations", ReservationScheme);

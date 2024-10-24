@@ -1,27 +1,28 @@
-const { MongoOIDCError, ObjectId } = require("mongodb")
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
-const CommentScheme = new mongoose.Schema(
+const CommentSchema = new mongoose.Schema(
     {
-        eventId:{
-            type:mongoose.Schema.Types.ObjectId, //referencia a evento
-            ref:'events'
+        eventId: {
+            type: mongoose.Schema.Types.ObjectId, // referencia a evento
+            ref: 'events',
+            required: true // Campo requerido
         },
-        userId:{
-            type:mongoose.Schema.Types.ObjectId, //referencia al user
-            ref:'users'
+        userId: {
+            type: mongoose.Schema.Types.ObjectId, // referencia al usuario
+            ref: 'users',
+            required: true // Campo requerido
         },
-        content:{
-            type:String
-        },
-        createdAt:{
-            type:Date
+        content: {
+            type: String,
+            required: true, // Campo requerido
+            minlength: 1,    // Longitud mínima
+            maxlength: 500   // Longitud máxima
         }
     },
     {
-        timestamps:true,  //TODO createAt, updatedAt
-        versionKey:false
+        timestamps: true,  // Crea campos createdAt y updatedAt automáticamente
+        versionKey: false
     }
 );
 
-module.exports = mongoose.model("comments", CommentScheme)
+module.exports = mongoose.model("comments", CommentSchema);
