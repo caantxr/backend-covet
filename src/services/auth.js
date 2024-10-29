@@ -11,6 +11,7 @@ const dbRegisterUser = async (newUser) => {
 
     dbUser.password = encryptedPassword (dbUser.password);
 
+    // return await dbUser.save();
     const bjsonUser = await dbUser.save();
     
     return removePropertyUsers(bjsonUser);

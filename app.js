@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const dbConnect = require('./src/config/mongo');
-const { createDefaultUsers } = require("./src/config/setup");
+const { createDefaultUsers } = require("./src/config/register-default");
 const app = express();
 
 // Middleware

@@ -7,7 +7,7 @@ const { generateToken } = require("../utils/jwt");
 async function register (req,res){
     const inputData = req.body;
 
-    console.log( inputData );
+    // console.log( inputData );
     
     if (!inputData.email || !inputData.email.includes('@')) {
         return res.json({
