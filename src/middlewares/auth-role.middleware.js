@@ -16,7 +16,7 @@ async function authRole(req, res, next) {
         }
 
         // Verificar que el rol del usuario sea el adecuado
-        if (user.role !== 'admin') {  // Aquí se verifica directamente el rol "admin"
+        if (user.role !== 'super-admin') {  // Aquí se verifica directamente el rol "admin"
             return res.status(403).json({
                 ok: false,
                 msg: 'No tienes permisos de administrador'
