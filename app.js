@@ -21,6 +21,7 @@ app.use("/api/events", require("./src/routes/events")); // Rutas para eventos
 app.use("/api/categories", require("./src/routes/categories")); // Rutas para Categorias
 app.use("/api", require("./src/routes/comments")); // Rutas para comentarios
 app.use('/api/reservations', require("./src/routes/reservations"));// Rutas para Reservas
+app.use('/api/businesses', require("./src/routes/business"));
 
 /** Iniciar el servidor */
 app.listen(PORT, () => {
