@@ -1,7 +1,7 @@
 const CommentModel = require("../models/nosql/comment");
 
 const dbGetCommentsByEventId = async (eventId) => {
-    return await CommentModel.find({ eventId }).populate('userId', 'name email'); // Puedes personalizar los campos que deseas devolver del usuario
+    return await CommentModel.find({ eventId: mongoose.Types.ObjectId(eventId) }).populate('userId', 'name email');
 };
 
 const dbInsertComment = async (newComment) => {
