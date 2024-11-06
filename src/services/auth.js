@@ -1,4 +1,5 @@
 const { usersModel, businessModel } = require("../models");
+const business = require("../models/nosql/business");
 const { encryptedPassword } = require("../utils/bcrypt");
 const { removePropertyUsers } = require("../utils/json-filter");
 
@@ -27,13 +28,16 @@ const dbRegisterBusinessOwner = async ( newUser, newBusiness ) => {
 
     console.log( dbUser, dbBusiness );
 
-    const business = await Promise.all([
+    const data = await Promise.all([
         dbUser.save(),
         dbBusiness.save()
     ]);
 
-    // console.log( business );
-    return business[ 1 ];
+    console.log( data );
+    return {
+        user:data[0],
+        business :data[1]
+    };
 }
 
 module.exports = {dbGetUserByEmail,dbRegisterUser,dbRegisterBusinessOwner}

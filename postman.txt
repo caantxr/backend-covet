@@ -1,0 +1,26 @@
+
+POST http://localhost:4000/api/auth/register/business
+{
+    //USER PROPERTIES
+    "name": "Miguel",
+    "email": "miguelbusiness@covet.co",
+    "password": "123456789",
+    //business properties
+    "business": {
+        "name": "compumax",
+        "description": "a",
+        "location": {
+            "address": "asdfjahsdfkjh",
+            "city": "asdvfda",
+            "postalCode": "234234",
+            "coords": {
+                "lat": "391847298374",
+                "log": "393485729345872"
+            }
+        },
+        "contact": {
+            "email": "miguel@sadf.com",
+            "phone": "123456"
+        }
+    }
+}
