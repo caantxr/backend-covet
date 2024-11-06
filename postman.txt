@@ -13,14 +13,26 @@ POST http://localhost:4000/api/auth/register/business
             "address": "asdfjahsdfkjh",
             "city": "asdvfda",
             "postalCode": "234234",
-            "coords": {
-                "lat": "391847298374",
-                "log": "393485729345872"
-            }
         },
         "contact": {
             "email": "miguel@sadf.com",
             "phone": "123456"
         }
     }
+}
+
+
+POST http://localhost:4000/api/auth/login
+
+USUARIO SUPER ADMIN
+// {
+//     "name":"Super Admin: covet",
+//     "email":"miguel@covet.co",
+//     "password":"123456789"
+// }
+//USUARIO NEGOCIO
+{
+    "name":"Miguel",
+    "email":"miguelbusiness@covet.co",
+    "password":"123456789"
 }

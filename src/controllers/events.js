@@ -52,7 +52,7 @@ const getEventById = async (req, res) => {
 
     // Si necesitas asociar un userId al evento
     if (payload) {
-        inputData.userId = payload.id; // Agregar userId si es necesario
+        inputData.createdBy = payload.id; // Agregar userId si es necesario
     }
 
     console.log(inputData); // Para depuración

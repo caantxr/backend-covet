@@ -18,11 +18,7 @@ const BusinessSchema = new Schema(
                 type: String,
                 required: true
             },
-            postalCode: String,
-            coords: {
-                lat: String,
-                log: String
-            }
+            postalCode: String
         },
         contact: {
             // Correo electrónico del usuario

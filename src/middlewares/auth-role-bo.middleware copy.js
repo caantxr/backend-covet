@@ -1,6 +1,6 @@
 const UserModel = require("../models/nosql/users");
 
-async function authRole(req, res, next) {
+async function authRoleBowner(req, res, next) {
     try {
         // Obtener el ID del usuario autenticado desde el payload (suponiendo que 'req.authUser' ya está establecido)
         const userId = req.authUser.id;
@@ -14,12 +14,12 @@ async function authRole(req, res, next) {
                 msg: 'Usuario no encontrado'
             });
         }
-        console.log(user.role)
+
         // Verificar que el rol del usuario sea el adecuado
-        if (user.role !== 'super-admin') {  // Aquí se verifica directamente el rol "admin"
+        if (user.role !== 'business-owner') {  // Aquí se verifica directamente el rol "admin"
             return res.status(403).json({
                 ok: false,
-                msg: 'No tienes permisos de administrador'
+                msg: 'No Eres Propietario de un negocio'
             });
         }
 
@@ -35,5 +35,5 @@ async function authRole(req, res, next) {
 }
 
 module.exports = {
-    authRole
+    authRoleBowner
 };

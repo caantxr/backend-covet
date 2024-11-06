@@ -47,7 +47,8 @@ async function registerBusiness (req,res){
     const userData = {
         name: inputData.name,
         email: inputData.email,
-        password: inputData.password
+        password: inputData.password,
+        role: "business-owner"
     };
     const businessData = {
         ...inputData.business
