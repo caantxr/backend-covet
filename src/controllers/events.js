@@ -1,8 +1,9 @@
-const {eventsModel} = require('../models')
+const {eventsModel} = require('../models');
+const { dbGetEvents, dbGetEventById, dbCreateEvent, dbUpdateEvent, dbDeleteEvent } = require('../services/events');
 
 const getEvents = async (req, res) => {
     try {
-        const data = await eventsModel.find({});
+        const data = await dbGetEvents();
         
         res.status(200).json({
             ok: true,
@@ -21,7 +22,7 @@ const getEventById = async (req, res) => {
     const eventId = req.params.id;
 
     try {
-        const data = await eventsModel.findById(eventId);
+        const data = await dbGetEventById(eventId);
 
         /** Valida si el evento NO fue encontrado */
         if (!data) {
@@ -58,7 +59,7 @@ const getEventById = async (req, res) => {
     console.log(inputData); // Para depuración
 
     try {
-        const data = await eventsModel.create(inputData);
+        const data = await dbCreateEvent(inputData)
         console.log(data); // Para depuración
 
         res.status(201).json({
@@ -79,10 +80,7 @@ const updateEventPatch = async (req, res) => {
     const inputData = req.body; // Obtener los datos de entrada
 
     try {
-        const data = await eventsModel.findByIdAndUpdate(eventId, inputData, {
-            new: true, // Devuelve el documento actualizado
-            runValidators: true // Ejecuta validaciones de esquema
-        });
+        const data = await dbUpdateEvent (eventId,inputData)
 
         // Verifica si el evento no fue encontrado
         if (!data) {
@@ -109,7 +107,7 @@ const deleteEvent = async (req, res) => {
     const eventId = req.params.id; // Obtener el ID del evento desde los parámetros
 
     try {
-        const data = await eventsModel.findByIdAndDelete(eventId);
+        const data = await dbDeleteEvent (eventId)
 
         // Validar si el evento no fue encontrado
         if (!data) {
