@@ -9,6 +9,10 @@ const EventSchema = new mongoose.Schema(
         description: {
             type: String
         },
+        category: [{
+            type: mongoose.Schema.Types.ObjectId, // Referencia a múltiples eventos
+            ref: 'categories'
+        }],
         date: {
             type: Date,
             required: true, // Campo requerido
