@@ -1,6 +1,6 @@
 const { encryptedPassword } = require("../utils/bcrypt");
-const { usersModel } = require("../models/index");
-const users = require( "./data" );
+const { usersModel, categoryModel } = require("../models/index");
+const {users,categories} = require( "./data" );
 
 
 const createDefaultUsers = async () => {
@@ -30,7 +30,31 @@ const createDefaultUsers = async () => {
     }
 
 }
+const createDefaultCategories = async () => {
+    
+    try {
+        // Crea roles por defecto
+        const registeredCategories = await Promise.all(
+            categories.map( async (categoryData) => {
+                const categoryFound = await categoryModel.findOne({ name: categoryData.name });
 
+                if (!categoryFound) {
+                    const category = new categoryModel( categoryData );
+                    return category.save();
+                }
+                
+                return null; // No guarda si el usuario ya existe
+            })
+        );
+
+        // Filtra los valores nulos y muestra solo los usuarios que se han creado
+        console.log("Usuarios creados:", registeredCategories.filter(Boolean));
+
+    } catch (error) {
+        console.error( error );
+    }
+
+}
 module.exports = {
-    createDefaultUsers
+    createDefaultUsers, createDefaultCategories
 }

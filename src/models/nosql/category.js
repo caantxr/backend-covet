@@ -11,11 +11,7 @@ const CategorySchema = new mongoose.Schema(
         description: {
             type: String,
             maxlength: 200  // Longitud máxima para la descripción
-        },
-        events: [{
-            type: mongoose.Schema.Types.ObjectId, // Referencia a múltiples eventos
-            ref: 'events'
-        }]
+        }
     },
     {
         timestamps: true,  // Crea campos createdAt y updatedAt automáticamente

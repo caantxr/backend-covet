@@ -1,7 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const dbConnect = require('./src/config/mongo');
-const { createDefaultUsers } = require("./src/config/register-default");
+const { createDefaultUsers, createDefaultCategories } = require("./src/config/register-default");
+const { create } = require("./src/models/nosql/users");
 const app = express();
 
 // Middleware
@@ -14,6 +15,7 @@ const PORT = process.env.PORT || 3000; // Definir el puerto
 /** Conexión a MongoDB */
 dbConnect();
 createDefaultUsers();
+createDefaultCategories();
 
 /** Rutas */
 app.use("/api/auth", require("./src/routes/auth")); // Rutas para autenticación
