@@ -7,7 +7,9 @@ const CategoryModel = require("../models/nosql/category");
  * @returns {Promise<Array>} - Una promesa que resuelve a una lista de negocios.
  */
 const dbGetBusinesses = async () => {
-    return await BusinessModel.find().populate('category');
+    return await BusinessModel.find().populate({
+        path : "category"
+    });
 }
 
 /**

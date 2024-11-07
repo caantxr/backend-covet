@@ -1,9 +1,10 @@
 const { businessModel } = require('../models');
+const { dbGetBusinesses } = require('../services/business');
 
 // Obtener todos los negocios
 const getBusinesses = async (req, res) => {
     try {
-        const data = await businessModel.find({});
+        const data = await dbGetBusinesses();
         
         res.status(200).json({
             ok: true,

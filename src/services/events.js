@@ -1,11 +1,16 @@
 const mongoose = require('mongoose');
 const EventModel = require("../models/nosql/events");
 const Categorymodel = require("../models/nosql/category");
+const { categoryModel } = require('../models');
 
 const dbGetEvents = async () => {
-    return await EventModel.find().populate('category');
+    return await EventModel.find().populate({
+        path : "category"
+    });
 }
-
+const dbCreateEvent = async (newEvent) => {
+    return await EventModel.create(newEvent)
+}
 const dbGetEventById = async (_id) => {
     return await EventModel.findOne({ _id });
 }
@@ -83,5 +88,6 @@ module.exports = {
     dbUpdateEvent,
     dbDeleteEvent,
     findEventByName,
-    dbGetEventsByCategory
+    dbGetEventsByCategory,
+    dbCreateEvent
 };
