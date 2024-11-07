@@ -16,12 +16,6 @@ const EventSchema = new mongoose.Schema(
         date: {
             type: Date,
             required: true, // Campo requerido
-            // validate: {
-            //     validator: function(value) {
-            //         return value >= new Date(); // Validación: la fecha no puede ser en el pasado
-            //     },
-            //     message: 'La fecha debe ser igual o posterior a la fecha actual.'
-            // }
         },
         location: {
             type: String,
