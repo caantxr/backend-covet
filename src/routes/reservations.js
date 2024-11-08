@@ -1,65 +1,33 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 const {
-    dbGetReservations,
-    dbGetReservationById,
-    dbInsertReservation,
-    dbUpdateReservation,
-    dbDeleteReservation
-} = require("../services/reservations");
+    getReservations,
+    getReservationById,
+    createReservation,
+    updateReservation,
+    deleteReservation
+} = require('../controllers/reservations'); // Asegúrate de que el controlador esté bien definido
 
 // Obtener todas las reservas
-router.get("/", async (req, res) => {
-    try {
-        const reservations = await dbGetReservations();
-        res.json(reservations);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
+// Respuesta: Array de reservas
+router.get('/', getReservations);
 
-// Obtener una reserva por ID
-router.get("/:id", async (req, res) => {
-    try {
-        const reservation = await dbGetReservationById(req.params.id);
-        if (!reservation) return res.status(404).json({ msg: "Reserva no encontrada" });
-        res.json(reservation);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
+// Obtener reserva por ID
+// Respuesta: Objeto de reserva si existe
+router.get('/:id', getReservationById);
 
-// Crear una nueva reserva
-router.post("/", async (req, res) => {
-    try {
-        const newReservation = req.body;
-        const createdReservation = await dbInsertReservation(newReservation);
-        res.status(201).json(createdReservation);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
+// Crear nueva reserva
+// Requiere: { userId, eventId, numberOfTickets, reservationDate, status }
+// Respuesta: Objeto de la nueva reserva creada
+router.post('/', createReservation);
 
-// Actualizar una reserva
-router.put("/:id", async (req, res) => {
-    try {
-        const updatedReservation = await dbUpdateReservation(req.params.id, req.body);
-        if (!updatedReservation) return res.status(404).json({ msg: "Reserva no encontrada" });
-        res.json(updatedReservation);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
+// Actualizar reserva
+// Requiere: { numberOfTickets, status } (solo los campos que se deseen actualizar)
+// Respuesta: Objeto de la reserva actualizada
+router.put('/:id', updateReservation);
 
-// Eliminar una reserva
-router.delete("/:id", async (req, res) => {
-    try {
-        const deletedReservation = await dbDeleteReservation(req.params.id);
-        if (!deletedReservation) return res.status(404).json({ msg: "Reserva no encontrada" });
-        res.json({ msg: "Reserva eliminada" });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
+// Eliminar reserva
+// Respuesta: Mensaje de éxito o error
+router.delete('/:id', deleteReservation);
 
 module.exports = router;
