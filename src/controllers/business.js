@@ -1,5 +1,5 @@
 const { businessModel } = require('../models');
-const { dbGetBusinesses } = require('../services/business');
+const { dbGetBusinesses, dbGetBusinessById, dbInsertBusiness, dbUpdateBusiness, dbDeleteBusiness } = require('../services/business');
 
 // Obtener todos los negocios
 const getBusinesses = async (req, res) => {
@@ -24,7 +24,7 @@ const getBusinessById = async (req, res) => {
     const businessId = req.params.id;
 
     try {
-        const data = await businessModel.findById(businessId);
+        const data = await dbGetBusinessById(businessId);
 
         if (!data) {
             return res.status(404).json({
@@ -56,7 +56,7 @@ const createBusiness = async (req, res) => {
     }
 
     try {
-        const data = await businessModel.create(inputData);
+        const data = await dbInsertBusiness(inputData);
         
         res.status(201).json({
             ok: true,
@@ -77,10 +77,7 @@ const updateBusiness = async (req, res) => {
     const inputData = req.body;
 
     try {
-        const data = await businessModel.findByIdAndUpdate(businessId, inputData, {
-            new: true,
-            runValidators: true
-        });
+        const data = await dbUpdateBusiness(businessId,inputData)
 
         if (!data) {
             return res.status(404).json({
@@ -107,7 +104,7 @@ const deleteBusiness = async (req, res) => {
     const businessId = req.params.id;
 
     try {
-        const data = await businessModel.findByIdAndDelete(businessId);
+        const data = await dbDeleteBusiness (businessId)
 
         if (!data) {
             return res.status(404).json({
@@ -161,32 +158,32 @@ const getBusinessByName = async (req, res) => {
     }
 };
 
-// Obtener negocios por categoría
-const getBusinessesByCategory = async (req, res) => {
-    const categoryName = req.params.categoryName;
+// // Obtener negocios por categoría
+// const getBusinessesByCategory = async (req, res) => {
+//     const categoryName = req.params.categoryName;
 
-    try {
-        const businesses = await businessModel.find({ category: categoryName });
+//     try {
+//         const businesses = await businessModel.find({ category: categoryName });
 
-        if (!businesses || businesses.length === 0) {
-            return res.status(404).json({
-                ok: false,
-                msg: 'No se encontraron negocios en esta categoría.'
-            });
-        }
+//         if (!businesses || businesses.length === 0) {
+//             return res.status(404).json({
+//                 ok: false,
+//                 msg: 'No se encontraron negocios en esta categoría.'
+//             });
+//         }
 
-        res.status(200).json({
-            ok: true,
-            data: businesses
-        });
-    } catch (error) {
-        console.error("Error en getBusinessesByCategory:", error);
-        res.status(500).json({
-            ok: false,
-            msg: 'Error al obtener negocios.'
-        });
-    }
-};
+//         res.status(200).json({
+//             ok: true,
+//             data: businesses
+//         });
+//     } catch (error) {
+//         console.error("Error en getBusinessesByCategory:", error);
+//         res.status(500).json({
+//             ok: false,
+//             msg: 'Error al obtener negocios.'
+//         });
+//     }
+// };
 
 module.exports = {
     getBusinesses,
@@ -195,5 +192,5 @@ module.exports = {
     updateBusiness,
     deleteBusiness,
     getBusinessByName,
-    getBusinessesByCategory
+    // getBusinessesByCategory
 };

@@ -7,9 +7,7 @@ const CategoryModel = require("../models/nosql/category");
  * @returns {Promise<Array>} - Una promesa que resuelve a una lista de negocios.
  */
 const dbGetBusinesses = async () => {
-    return await BusinessModel.find().populate({
-        path : "category"
-    });
+    return await BusinessModel.find()
 }
 
 /**
@@ -102,23 +100,23 @@ const findBusinessByName = async (searchParams) => {
  * @returns {Promise<Array>} - Una promesa que resuelve a una lista de negocios en la categoría.
  * @throws {Error} - Lanza un error si no se encuentra la categoría o si no se proporciona un nombre de categoría.
  */
-const dbGetBusinessesByCategory = async (categoryName) => {
-    try {
-        if (!categoryName) {
-            throw new Error('El nombre de la categoría es obligatorio.'); // Validación de entrada
-        }
+// const dbGetBusinessesByCategory = async (categoryName) => {
+//     try {
+//         if (!categoryName) {
+//             throw new Error('El nombre de la categoría es obligatorio.'); // Validación de entrada
+//         }
 
-        const category = await CategoryModel.findOne({ name: categoryName }).populate('businesses');
-        if (!category) {
-            throw new Error(`Categoría "${categoryName}" no encontrada.`); // Lanzar error si la categoría no existe
-        }
+//         const category = await CategoryModel.findOne({ name: categoryName }).populate('businesses');
+//         if (!category) {
+//             throw new Error(`Categoría "${categoryName}" no encontrada.`); // Lanzar error si la categoría no existe
+//         }
 
-        return category.businesses; // Devolver negocios de la categoría
-    } catch (error) {
-        console.error('Error al obtener negocios de la categoría:', error);
-        throw error; // Lanzar error si ocurre un problema
-    }
-}
+//         return category.businesses; // Devolver negocios de la categoría
+//     } catch (error) {
+//         console.error('Error al obtener negocios de la categoría:', error);
+//         throw error; // Lanzar error si ocurre un problema
+//     }
+// }
 
 module.exports = {
     dbGetBusinesses,
@@ -127,5 +125,5 @@ module.exports = {
     dbUpdateBusiness,
     dbDeleteBusiness,
     findBusinessByName,
-    dbGetBusinessesByCategory
+    // dbGetBusinessesByCategory
 };
