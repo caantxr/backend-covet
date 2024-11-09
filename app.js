@@ -14,8 +14,8 @@ const PORT = process.env.PORT || 3000; // Definir el puerto
 
 /** Conexión a MongoDB */
 dbConnect();
-createDefaultUsers();
-createDefaultCategories();
+// createDefaultUsers();
+// createDefaultCategories();
 
 /** Rutas */
 app.use("/api/auth", require("./src/routes/auth")); // Rutas para autenticación

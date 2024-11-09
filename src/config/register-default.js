@@ -9,7 +9,7 @@ const createDefaultUsers = async () => {
         // Crea roles por defecto
         const registeredUsers = await Promise.all(
             users.map( async (userData) => {
-                const userFound = await usersModel.findOne({ username: userData.username });
+                const userFound = await usersModel.findOne({ username: userData.email });
 
                 if (!userFound) {
                     userData.password = encryptedPassword( userData.password );
