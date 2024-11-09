@@ -119,7 +119,8 @@ function reNewToken( req, res ) {
     // Paso 3: Envia el Token al cliente
     res.json({
         ok: true,
-        token: newToken
+        token: newToken,
+        data: payload
     });
 }
 
