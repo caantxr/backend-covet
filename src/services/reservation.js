@@ -20,11 +20,15 @@ const dbUpdateReservation = async (id, updatedReservation) => {
 const dbDeleteReservation = async (id) => {
     return await ReservationModel.findByIdAndDelete(id);
 };
+const dbGetReservationsByUserId = async (userId) => {
+    return await ReservationModel.find({userId}).populate('userId eventId');
+};
 
 module.exports = {
     dbGetReservations,
     dbGetReservationById,
     dbInsertReservation,
     dbUpdateReservation,
-    dbDeleteReservation
+    dbDeleteReservation,
+    dbGetReservationsByUserId
 };
