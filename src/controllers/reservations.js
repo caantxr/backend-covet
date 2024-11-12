@@ -22,7 +22,6 @@ const getReservationsByUserId = async (req, res) => {
 const changeStateReservationById = async (req, res) => {
     const { id } = req.params;
     const {status} = req.body;
-    console.log(status);
     try {
         const reservation = await dbChangeStateReservationById(id,status);
         if (!reservation) return res.status(404).json({ error: "Reservas del usuario no encontradas." });
