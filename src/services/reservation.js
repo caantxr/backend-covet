@@ -7,7 +7,11 @@ const dbGetReservations = async () => {
 const dbGetReservationById = async (id) => {
     return await ReservationModel.findById(id).populate('userId eventId');
 };
-
+const dbChangeStateReservationById = async (_id,status) => {
+    console.log(status);
+    console.log(_id);
+    return await ReservationModel.findOneAndUpdate({_id},{$set:{status}},{new:true});
+};
 const dbInsertReservation = async (newReservation) => {
     const reservation = new ReservationModel(newReservation);
     return await reservation.save();
@@ -30,5 +34,6 @@ module.exports = {
     dbInsertReservation,
     dbUpdateReservation,
     dbDeleteReservation,
-    dbGetReservationsByUserId
+    dbGetReservationsByUserId,
+    dbChangeStateReservationById
 };

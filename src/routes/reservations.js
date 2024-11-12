@@ -6,7 +6,8 @@ const {
     createReservation,
     updateReservation,
     deleteReservation,
-    getReservationsByUserId
+    getReservationsByUserId,
+    changeStateReservationById
 } = require('../controllers/reservations'); // Asegúrate de que el controlador esté bien definido
 
 // Obtener todas las reservas
@@ -36,5 +37,6 @@ router.delete('/:id', deleteReservation);
 
 
 router.get('/user/:id', getReservationsByUserId );
+router.patch('/user/reserve/:id', changeStateReservationById  );
 
 module.exports = router;

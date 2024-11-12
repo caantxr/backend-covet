@@ -1,4 +1,4 @@
-const { dbGetReservations, dbGetReservationById, dbInsertReservation, dbUpdateReservation, dbDeleteReservation, dbGetReservationsByUserId } = require("../services/reservation");
+const { dbGetReservations, dbGetReservationById, dbInsertReservation, dbUpdateReservation, dbDeleteReservation, dbGetReservationsByUserId, dbChangeStateReservationById } = require("../services/reservation");
 
 // Controlador para obtener todas las reservas
 const getReservations = async (req, res) => {
@@ -13,6 +13,18 @@ const getReservationsByUserId = async (req, res) => {
     const { id } = req.params;
     try {
         const reservation = await dbGetReservationsByUserId(id);
+        if (!reservation) return res.status(404).json({ error: "Reservas del usuario no encontradas." });
+        res.status(200).json(reservation);
+    } catch (error) {
+        res.status(500).json({ error: "Error al obtener las reservas por id de usuario." });
+    }
+};
+const changeStateReservationById = async (req, res) => {
+    const { id } = req.params;
+    const {status} = req.body;
+    console.log(status);
+    try {
+        const reservation = await dbChangeStateReservationById(id,status);
         if (!reservation) return res.status(404).json({ error: "Reservas del usuario no encontradas." });
         res.status(200).json(reservation);
     } catch (error) {
@@ -75,5 +87,6 @@ module.exports = {
     createReservation,
     updateReservation,
     deleteReservation,
-    getReservationsByUserId
+    getReservationsByUserId,
+    changeStateReservationById
 };
